@@ -3,6 +3,8 @@ const fs = require("fs");
 
 let homeContent = "";
 let projectContent = "";
+let regContent = "";
+let imgContent = "";
 
 fs.readFile("home.html", (err, home) => {
   if (err) {
@@ -18,6 +20,20 @@ fs.readFile("project.html", (err, project) => {
   projectContent = project;
 });
 
+fs.readFile("registration.html", (err, registration) => {
+  if (err) {
+    throw err;
+  }
+  regContent = registration;
+});
+
+fs.readFile("netflixsignup.jpg", (err, netflixsignup) => {
+  if (err) {
+    throw err;
+  }
+  imgContent = netflixsignup;
+});
+
 
 http
   .createServer((request, response) => {
@@ -28,10 +44,18 @@ http
         response.write(projectContent);
         response.end();
         break;
+      case "/registration":
+        response.write(regContent);
+        response.end();
+        break;
+      case "/netflixsignup":
+        response.write(imgContent);
+        response.end();
+        break;
       default:
         response.write(homeContent);
         response.end();
         break;
     }
   })
-  .listen(3000);
+  .listen(5110);
